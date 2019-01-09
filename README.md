@@ -24,7 +24,7 @@ As a Knife Hit Replica, the game consists of almost all functions and details fr
 ### *Game Flow:*
 The latest version of the game consists of two flows: Endless (Normal) Mode and Challenge Mode.
 
--- *Endless Mode: *
+-- *Endless Mode:*
 The game always starts at level 1, at both normal start and restart. Whenever a level is completed, a new level is loaded after playing an animation of the target_board explosion. The level keeps increasing until the player dies. If the level contents run out, the levels cycle simply repeat itself.
 
 -- *Challenge Mode:*
