@@ -1,23 +1,23 @@
 # HitTheDonut
 Description and latest version of Hit The Donut.
 
-#####Author: Võ Phú Thành
-#####Ho Chi Minh City, December 24th, 2018.
+##### Author: Võ Phú Thành
+##### Ho Chi Minh City, December 24th, 2018.
 
 **abstract-** A replica of the famous hit "Knife Hit", but with a dancing donut as the target board and various candy, lollipops as projectiles.
 
-##**1. Introduction:**
-###*Basic Introduction:*
+## **1. Introduction:**
+### *Basic Introduction:*
 A hyper casual game where players launch lollipops, forks and various candy models into a giant dancing donut.
 
-###*Developer's Description:*
+### *Developer's Description:*
 As a Knife Hit Replica, the game consists of almost all functions and details from the original, which are:
 -- A target_board, in this case a Donut, that rotates differently (slow, fast, change the direction) according to the background music.
 -- A pool of fruits_, which jumps within its local y-axis and rotates (optional) according to the background music.
 -- A pool of projectiles (knives in the original game) that players will use to launch into the target_board. Update scores everytime a knife hits the target_board, or fruits_. The game ends when a knife hits another knife. A level is completed when all knives are thrown into the target_board.
 -- A level is loaded with a target_board prefab, fruits_ prefab, knives prefab and some particles system prefab (for target_board explosion, fruits_ explosion and target_board being hit effect). Some level also consists of pre_knives, which are loaded to be stuck into the target_board beforehand. Each level has a unique song for the game models to operate, with other unique configurations as well: number_of_knives, target_board_speed (low-medium-high), pre_knives_angles, fruits_angles.
 
-###*Game Flow:*
+### *Game Flow:*
 The latest version of the game consists of two flows: Endless (Normal) Mode and Challenge Mode.
 -- *Endless Mode: *
 The game always starts at level 1, at both normal start and restart. Whenever a level is completed, a new level is loaded after playing an animation of the target_board explosion. The level keeps increasing until the player dies. If the level contents run out, the levels cycle simply repeat itself.
@@ -30,8 +30,8 @@ A special version specifically built for Content Team to test their contents wit
 ** The Content Tool must be able to load contents via an online config. That is, there would usually be a given online address to download the contents, and these links must be read by the game from a config that loaded from the internet before. Besides the content links, the configs in this game also has other features as normal configs.
 ** The functions in-game are also kept to be simple (no challenge mode, no settings, no ads, no IAP, etc.) so that the game only shows basic features of the content (index, song_name, duration, etc.) to Content Team.
 
-##**2. Methods and Development:**
-###*Project Timelines:*
+## **2. Methods and Development:**
+### *Project Timelines:*
 -- Nov 12th, 2018: Project started.
 -- Nov 15th, 2018: Sync target_board's movement to given nodes + Add fruits.
 -- Nov 20th, 2018: Add Donut package.
@@ -60,7 +60,7 @@ A special version specifically built for Content Team to test their contents wit
 -- Dec 20th, 2018: Construct new Content Tool version. 
 -- Dec 21st, 2018: Update new Content Tool version.
 
-###*Project Details:*
+### *Project Details:*
 -- *Hierarchy:*
 
 + The game was built upon the Base Framework provided by the company, which included various libraries from external (Demi Giant - Tween, IronSource, etc) to internal development (Ama_Utils for songs' synchronization, FileLoadIO for loading resources, etc).
@@ -95,22 +95,22 @@ A special version specifically built for Content Team to test their contents wit
 + Working with Content Team: The Content Team would simply upload their contents (.mp3 files and .bin files) to the given links in the configs, then the tool would start the game with the contents they wish to test. All the effects, movements and rotations in the game would change according to each content in the list. The contents can be altered via each upload, or change the link inside the configs, or add new ones in the configs as well. Besides providing the links to download, the Content Team also has to scale the features of target_board_speed (low, medium, high) and number_of_fruits so the gameplay can be loaded safely.
 
 
-##**3. Issues and Achievements:**
-###*Issues:*
+## **3. Issues and Achievements:**
+### *Issues:*
 -- Too much time was spent on building the project, and it's not gameplay building. One of the author's first mistake was not implement the base framework first into the project. Instead, the author jumped right in to work with the gameplay on an individual project. Later on, when the project has been done quite a lot, the task of merging the base framework with the on-going project caused many troubles and time-wasted. Moreover, as the flow in the base framework, especially during the SplashScene (SplashScene.cs), is quite complex, the author also had to spend many work days to read and match the two projects together. These could have been avoided if the base framework was received earlier and implemented at the beginning. The loose time can be used to improve the gameplay and other features.
 -- Another reason for the slow speed of the project was the author's limited in skills and experiences within this genre. As this project was also the author's first big project in the industry, there have been a lack in coding generation and modification. For example, the author was stuck with the initial gameplay for too long that cannot realize the flow the game needed and as a result, a day had to be spent to have the whole project thought thorougly and built again. There was an attempt to adapt, but the pace was rather slow hence the effort was not recognizable much. If it was not thanks to the team's support, especially the team lead's, the project could not have been finished.
 
-###*Achievements:*
+### *Achievements:*
 -- One of the most considerable achievement in this project is the movement of main objects in the game. As the base framework has offered the method to get notes data from file .bin, the task of synchronization the target_board's movement and rotation with the background music was done quite smoothly with the built-in method Transform.Rotate( ) of Unity. There were 4 key notes to determine the target_board's rotation: spin with low speed, spin with medium speed, spin with high speed and change spin direction (the last key note was to make the fruits jump) hence the author implements a function to compare their timeAppear with the background music audiosource playtime. At first, the comparison was strict as the playtime must be equal to the timeAppear for the according movement to be played. As Unity operates the game from frame to frame (with the delta time between each frame approximately 0.002s), the ask for comparing two exact moment was impossible. Thus later the author had to take on a different approach, with a much loosely comparison and also created an array to store all the notes have been checked (by this way, no notes would be missed as there were some shared the same timeAppear). To handle the fruits' movement, the author created a GameObject called FruitHolder that would act as a Global position holder for the fruit, so that the fruit can freely move back and forth its own local y-axis during the jumping process. As for the knives' movement, the throwing function was quite simple but tricky since it is needed to check if the launched knife has already made an impact (with the target_board or another knife) and only then it allows a new knife to be spawned. The impacts on target_board and other knives were detected with OnCollisionEnter2D, while the impact with fruits had to be recognized through OnTriggerEnter2D as the knife was meant to move through the fruit while the game still records that moment of impact. Also, the custom movement of the knives on the board when the target_board explodes was made with AddForce( ) for direct movement and AddTorque( ) for rotational one. 
 -- The other achievement was more of a personal feat to the author, as it was valuable lesson that the author has learned throughout the course of making the game. First and foremost, the author learned how to read from configuration files which are loaded either locally or online via the methods implemented within the base framework. The next lesson was improvement in coding styles, including ways to wrap up code for better management and ways to implement so that variables can be recycled and altered later on without causing many troubles. Last but not least was the flow of making the game. Through this project did the author really see how a proper flow for a game should work, from the very initial planning phase, to the first build of gameplay and to the final optimization after numerous modification. 
 
-##**4. Future Work:**
+## **4. Future Work:**
 Although the project was now wrapped up for good, there were still a few tasks that the author wishes to do:
 -- Smoother gameplay: As the code was not totally optimized, there are still some segments of it cause the game to perform slowly in some devices. 
 -- Better in transition: The level transition that occurs between each level, although have been modified and reworked many times, still leaves not quite a satisfaction to the author.
 -- A better Content Tool version: As the project was closed in its final days, the Content Tool version was not updated as plan. 
 -- And some other issues: such as knife model should be the same at Menu scene and in the next gameplay scene, custom weapon UI to be spawned according to the knife prefab, etc.
-##**5. Acknowledgement:**
+## **5. Acknowledgement:**
 Only in a very short term (2 months), but the company, especially the Hyper Casual Newgame team, has helped and supported the author a lot. Without their advisory and guidance, the project would not have come this far. Thus, thank you all.
 
 
